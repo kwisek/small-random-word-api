@@ -1,6 +1,7 @@
 # Run if you want to refill word database
 
 import sqlite3
+import re
 
 with open("source.txt", "r") as data:
 
@@ -14,6 +15,9 @@ with open("source.txt", "r") as data:
 
     data.seek(0)
     for line in data.readlines():
-        connection.execute(f"INSERT INTO WORD(CONTENT) VALUES('{line}');")
+        word = re.sub(r'[^a-zA-Z]', '', line)
+        if len(word) >= 2:
+            connection.execute(f"INSERT INTO WORD(CONTENT) VALUES('{word}');")
 
     connection.commit()
+    connection.close()
