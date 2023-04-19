@@ -7,10 +7,9 @@ def all_words():
         words = connection.execute(f"SELECT CONTENT FROM WORD;").fetchall()
         connection.close()
         return list(map(lambda x: x[0], words))
-    except:
+    except Exception as e:
+        print("An exception occured: " + e)
         return []
-
-    
 
 def all_words_by_len(len: int):
     try:
@@ -21,10 +20,10 @@ def all_words_by_len(len: int):
             words = connection.execute(f"SELECT CONTENT, LENGTH(CONTENT) FROM WORD WHERE LENGTH(CONTENT) = {len};").fetchall()
         connection.close()
         return list(map(lambda x: x[0], words))
-    except:
+    except Exception as e:
+        print("An exception occured: " + e)
         return []
     
-
 def all_words_by_pattern(pattern: str):
     try:
         pattern = pattern.replace("~", "%")
@@ -32,7 +31,8 @@ def all_words_by_pattern(pattern: str):
         words = connection.execute(f"SELECT CONTENT FROM WORD WHERE CONTENT LIKE '{pattern}';").fetchall()
         connection.close()
         return list(map(lambda x: x[0], words))
-    except:
+    except Exception as e:
+        print("An exception occured: " + e)
         return []
 
 def random_word_by_len(len: int):
