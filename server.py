@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .words import n_random_words
+from modules import n_random_words
 
 app = FastAPI()
 
